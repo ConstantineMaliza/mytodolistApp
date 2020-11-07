@@ -10,6 +10,9 @@ const db = firebase.firestore();
   const onUpdate =() =>{
     db.collection("Todolistapp").doc(todo.id).set({...todo,title})
    }
+   const onDelete = () =>{
+       db.collection("Todolistapp").doc(todo.id).delete()
+   }
     return(
         <>
         <input 
@@ -17,6 +20,7 @@ const db = firebase.firestore();
         onChange={e =>{setTitle(e.target.value)}}
         />
         <button onClick={onUpdate}>Update</button>
+        <button onClick={onDelete}>Delete</button>
         </>
     )
 
