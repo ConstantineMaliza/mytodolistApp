@@ -1,41 +1,57 @@
 import React, { Component } from 'react';
 
+import ToDoListService from "../services/todolist.services";
+
 export default class ToDoList extends Component {
     constructor(props) {
         super(props);
 
+        this.onChangeInput = this.onChangeInput.bind(this);
+        this.saveToDo = this.saveToDo.bind(this);
+
+
         this.state = {
-            userInput: '',
-            list: []
+            title: "",
+
+            submitted: false,
         }
     }
-    changeUserInput(input) {
+    onChangeInput(e) {
         this.setState({
-            userInput: input
+            title: e.target.value,
         });
     }
-    addToList(input){
-        let listArray = this.state.list;
+    saveToDo() {
+        let data = {
+            title: this.state.title,
+        };
+        ToDoListService.create(data)
+            .then(() => {
+                console.log("done created");
 
-        listArray.push(input);
+                this.setState({
+                    title: '',
 
-        this.setState({
-            list:listArray,
-            userInput:''
-        })
+                    submitted: true,
+                });
+
+            });
     }
+
 
     render() {
         return (
             <div className="to-do-list-main">
                 <input
-                    onChange={(e) => this.changeUserInput(e.target.value)}
-                    value={this.state.userInput}
-                    type="text" />
-                <button onClick={ () => this.addToList(this.state.userInput)}>press me</button>
-            <ul>
-        {this.state.list.map( (val) => <li>{val}</li>)}
-            </ul>
+                    type="text"
+                    id="title"
+                    required
+                    value={this.state.title}
+                    onChange={this.onChangeInput}
+                    name="title"
+                />
+                <button onClick={this.saveToDo}>Add</button>
+
             </div>
         )
     }
