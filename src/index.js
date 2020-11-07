@@ -4,13 +4,15 @@ import { BrowserRouter } from "react-router-dom";
 
 import './index.css';
 import App from './App';
-import ToDoList from './components/ToDoList'
+import AddToDo from './components/AddToDo';
+import GetToDo from './components/GetToDo';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <BrowserRouter>
     <App />
-    <ToDoList />
+    <AddToDo />
+    <GetToDo/>
   </BrowserRouter>,
   document.getElementById('root')
 );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ToDoListService from "../services/todolist.services";
 
-export default class ToDoList extends Component {
+export default class AddToDo extends Component {
     constructor(props) {
         super(props);
 
