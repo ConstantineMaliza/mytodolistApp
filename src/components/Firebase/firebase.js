@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-const firebaseConfig = {
+const config = {
     apiKey: "AIzaSyAmKJ3GM_4eeagtD6tFE6NAkPY-imA6J_0",
     authDomain: "todolist-ed003.firebaseapp.com",
     databaseURL: "https://todolist-ed003.firebaseio.com",
@@ -11,6 +11,6 @@ const firebaseConfig = {
     appId: "1:957026729409:web:1818ba9c565f9442f70340"
   };
 
-  firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(config);
    
   export default firebase;
