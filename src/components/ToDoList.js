@@ -7,22 +7,29 @@ const db = firebase.firestore();
 
 function ToDoList() {
     const [todos, setTodos] = React.useState([]);
+    const [newTodoTitle, setNewTodoTitle] = React.useState();
+
     React.useEffect(() => {
-        const fetchdata = async () => {
-            const data = await db.collection("Todolistapp").get()
-            setTodos(data.docs.map(doc => ({...doc.data(), id:doc.id })));
-        }
-        fetchdata()
+            return db.collection("Todolistapp").onSnapshot((snapshot)=>{
+                   const toDoList=[];
+                   snapshot.forEach(doc => toDoList.push({...doc.data(), id: doc.id}));
+                   setTodos(toDoList);
+            }) ;    
     }, [])
 
+    const onCreate = () => {
+        db.collection("Todolistapp").add({ title: newTodoTitle })
+    }
     return (
-            <ul>
-                {todos.map(todo => (
-                    <li key={todo.title}>
-                        <UpdateAndDeleteTodo todo={todo}/>
-                      </li>
-                ))}
-            </ul>
+        <ul>
+            <input value={newTodoTitle} onChange={(e) => setNewTodoTitle(e.target.value)} />
+            <button onClick={onCreate}>Create todolist</button>
+            {todos.map(todo => (
+                <li key={todo.id}>
+                    <UpdateAndDeleteTodo todo={todo} />
+                </li>
+            ))}
+        </ul>
     )
 }
 
